@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
+import CreatePostPage from "./pages/CreatePostPage";
 
 const App = () => {
   return (
@@ -10,9 +11,10 @@ const App = () => {
        transition-opacity duration-700 pt-20"
       >
         <Navbar />
-        <div className="container mx-auto px-4  py-6">
+        <div className="container mx-auto px-4  pt-3 pb-6">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/create" element={<CreatePostPage />} />
           </Routes>
         </div>
       </div>

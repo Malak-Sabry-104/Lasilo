@@ -13,6 +13,7 @@ const Navbar = () => {
         className="fixed top-0 w-full z-40 bg-[rgba(10,10,10,0.8)]
        backdrop-blur-lg border-b border-white/10 shadow-lg"
       >
+        {/* Desktop Navbar */}
         <div className="max-w-5xl  mx-auto px-4">
           <div className="flex justify-between  items-center h-16">
             <Link
@@ -146,6 +147,34 @@ const Navbar = () => {
               >
                 Create Community
               </Link>
+              {/* Mobile Auth */}
+              <div className="flex items-center">
+                {user ? (
+                  <div className="flex items-center space-x-4">
+                    {user.user_metadata.avatar_url && (
+                      <img
+                        src={user.user_metadata.avatar_url}
+                        alt="User Avatar"
+                        className="w-8 h-8 rounded-full object-cover"
+                      />
+                    )}
+                    <span className="text-gray-300">{displayName}</span>
+                    <button
+                      onClick={signOut}
+                      className="bg-red-500 px-3 py-1  rounded cursor-pointer"
+                    >
+                      Sign Out
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    onClick={signInWithGitHub}
+                    className="cursor-pointer flex gap-2 justify-center items-center bg-blue-500 px-3 py-1 rounded"
+                  >
+                    Sign In With <Github />
+                  </button>
+                )}
+              </div>
             </div>
           </div>
         )}
