@@ -1,4 +1,4 @@
-import { type ChangeEvent, useEffect, useState } from "react";
+import { type ChangeEvent, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { supabase } from "../supabase-client";
 
@@ -28,23 +28,29 @@ const createPost = async (post: PostInput, imageFile: File) => {
 
   return data;
 };
+
 const CreatePost = () => {
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
+
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
-  const { mutate, isPending, isError, isSuccess } = useMutation({
-    mutationFn: (data: { post: PostInput; imageFile: File }) =>
-      createPost(data.post, data.imageFile),
+  const { mutate, isPending, isError } = useMutation({
+    mutationFn: (data: { post: PostInput; imageFile: File }) => {
+      return createPost(data.post, data.imageFile);
+    },
   });
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    if (!selectedFile) {
-      alert("Please select an image.");
-      return;
-    }
-    mutate({ post: { title, content }, imageFile: selectedFile });
+    if (!selectedFile) return;
+    mutate({
+      post: {
+        title,
+        content,
+      },
+      imageFile: selectedFile,
+    });
   };
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -52,13 +58,7 @@ const CreatePost = () => {
       setSelectedFile(e.target.files[0]);
     }
   };
-  useEffect(() => {
-    if (isSuccess) {
-      setTitle("");
-      setContent("");
-      setSelectedFile(null);
-    }
-  }, [isSuccess]);
+
   return (
     <>
       <form
@@ -118,9 +118,9 @@ const CreatePost = () => {
             required
             onChange={handleFileChange}
             className="block w-full text-white file:mr-4 
-              file:py-2 file:px-4 file:rounded-lg file:border-0
-              file:text-sm file:font-semibold
-              file:bg-purple-500 file:text-white hover:file:bg-purple-600 transition"
+            file:py-2 file:px-4 file:rounded-lg file:border-0
+            file:text-sm file:font-semibold
+            file:bg-purple-500 file:text-white hover:file:bg-purple-600 transition"
           />
         </div>
 
@@ -141,5 +141,4 @@ const CreatePost = () => {
     </>
   );
 };
-
 export default CreatePost;
