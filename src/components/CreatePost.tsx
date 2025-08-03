@@ -1,15 +1,19 @@
+import { type ChangeEvent, useEffect, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { useState, type ChangeEvent } from "react";
 import { supabase } from "../supabase-client";
-interface postInput {
+
+interface PostInput {
   title: string;
   content: string;
 }
-const createPost = async (post: postInput, imageFile: File) => {
+
+const createPost = async (post: PostInput, imageFile: File) => {
   const filePath = `${post.title}-${Date.now()}-${imageFile.name}`;
+
   const { error: uploadError } = await supabase.storage
     .from("post-images")
     .upload(filePath, imageFile);
+
   if (uploadError) throw new Error(uploadError.message);
 
   const { data: publicURLData } = supabase.storage
@@ -18,35 +22,48 @@ const createPost = async (post: postInput, imageFile: File) => {
 
   const { data, error } = await supabase
     .from("posts")
-    .insert({ ...post, "image-url": publicURLData });
+    .insert({ ...post, image_url: publicURLData.publicUrl });
+
   if (error) throw new Error(error.message);
+
   return data;
 };
-
 const CreatePost = () => {
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
-  const [selectedFile, setselectedFile] = useState<File | null>(null);
-  const { mutate, isPending, isError } = useMutation({
-    mutationFn: (data: { post: postInput; imageFile: File }) => {
-      return createPost(data.post, data.imageFile);
-    },
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+  const { mutate, isPending, isError, isSuccess } = useMutation({
+    mutationFn: (data: { post: PostInput; imageFile: File }) =>
+      createPost(data.post, data.imageFile),
   });
+
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    if (!selectedFile) return;
+    if (!selectedFile) {
+      alert("Please select an image.");
+      return;
+    }
     mutate({ post: { title, content }, imageFile: selectedFile });
   };
+
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      setselectedFile(e.target.files[0]);
+      setSelectedFile(e.target.files[0]);
     }
   };
+  useEffect(() => {
+    if (isSuccess) {
+      setTitle("");
+      setContent("");
+      setSelectedFile(null);
+    }
+  }, [isSuccess]);
   return (
     <>
       <form
         onSubmit={handleSubmit}
-        className="max-w-2xl mx-auto  p-8 bg-white/5 backdrop-blur-md rounded-2xl shadow-lg space-y-6"
+        className="max-w-2xl mx-auto p-8 bg-white/5 backdrop-blur-md rounded-2xl shadow-lg space-y-6"
       >
         {/* Title Input */}
         <div>
@@ -101,8 +118,8 @@ const CreatePost = () => {
             required
             onChange={handleFileChange}
             className="block w-full text-white file:mr-4 
-            file:py-2 file:px-4 file:rounded-lg file:border-0
-             file:text-sm file:font-semibold
+              file:py-2 file:px-4 file:rounded-lg file:border-0
+              file:text-sm file:font-semibold
               file:bg-purple-500 file:text-white hover:file:bg-purple-600 transition"
           />
         </div>
@@ -110,13 +127,11 @@ const CreatePost = () => {
         {/* Submit Button */}
         <button
           type="submit"
-          className="cursor-pointer w-full py-3
-           bg-purple-500 hover:bg-purple-600 text-white font-semibold rounded-lg transition"
+          className="cursor-pointer w-full py-3 bg-purple-500 hover:bg-purple-600 text-white font-semibold rounded-lg transition"
         >
           {isPending ? "Creating..." : "Create Post"}
         </button>
 
-        {/* Error Message */}
         {isError && (
           <p className="text-red-500 text-center font-medium">
             Error creating post.
