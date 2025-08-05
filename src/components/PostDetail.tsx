@@ -3,6 +3,7 @@ import { supabase } from "../supabase-client";
 import type { Post } from "./PostList";
 import { CalendarDays } from "lucide-react";
 import LikeButton from "./LikeButton";
+import CommentSection from "./CommentSection";
 
 interface Props {
   postId: number;
@@ -65,6 +66,7 @@ const PostDetail = ({ postId }: Props) => {
         </div>
       </div>
       <LikeButton postId={postId} />
+      <CommentSection postId={postId} />
     </div>
   );
 };
