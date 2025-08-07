@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import type { Post } from "./PostList";
+import { Heart, MessageCircleMore } from "lucide-react";
 
 interface Props {
   post: Post;
@@ -20,7 +21,7 @@ const PostItem = ({ post }: Props) => {
         to={`/post/${post.id}`}
         className="relative z-10 flex flex-col bg-[#1e1e1e] rounded-2xl 
         border border-[#545a6a] overflow-hidden transition duration-300 
-        hover:bg-[#2a2a2a] text-white pb-[3rem]"
+        hover:bg-[#2a2a2a] text-white pb-2"
       >
         {/* Header: avatar and title */}
         <div className="flex items-center gap-2 p-4">
@@ -43,6 +44,17 @@ const PostItem = ({ post }: Props) => {
             alt={post.title}
             className="w-full h-[140px] object-cover rounded-xl"
           />
+        </div>
+
+        <div className="flex  gap-7 justify-between items-center mx-5 p-2">
+          <span className="flex items-center gap-2 justify-center  p-1">
+            <Heart  className="cursor-pointer text-white/50"/>
+            <span className="cursor-pointer text-white/50">{post.like_count ?? 0}</span>
+          </span>
+          <span className="flex items-center gap-2 justify-center  p-1">
+            <MessageCircleMore  className="cursor-pointer text-white/50"/>
+                <span className="cursor-pointer text-white/50">{post.comment_count ?? 0}</span>
+          </span>
         </div>
       </Link>
     </div>
