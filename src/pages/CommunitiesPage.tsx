@@ -3,7 +3,7 @@ import { CommunityList } from "../components/CommunityList";
 export const CommunitiesPage = () => {
   return (
     <>
-      <div>
+      <div className="h-[90vh]">
         <h1
           className="text-4xl font-extrabold text-center
              mb-8 bg-gradient-to-r from-purple-400 to-pink-500 

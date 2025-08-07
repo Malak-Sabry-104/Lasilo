@@ -6,16 +6,21 @@ import PostPage from "./pages/PostPage";
 import CreateCommunityPage from "./pages/CreateCommunityPage";
 import { CommunitiesPage } from "./pages/CommunitiesPage";
 import { CommunityPage } from "./pages/CommunityPage";
+import { useEffect } from "react";
+import Footer from "./components/Footer";
 
 const App = () => {
+  useEffect(() => {
+  document.title = 'Your Communities, Your Spark.';
+}, []);
   return (
     <>
       <div
         className="min-h-screen bg-black text-gray-100
-       transition-opacity duration-700 pt-20"
+       transition-opacity duration-700 "
       >
         <Navbar />
-        <div className="container mx-auto px-4  pt-3 pb-6">
+        <div className="pt-20  pb-5">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/create" element={<CreatePostPage />} />
@@ -26,6 +31,7 @@ const App = () => {
             <Route path="/community/:id" element={<CommunityPage />} />
           </Routes>
         </div>
+        <Footer/>
       </div>
     </>
   );

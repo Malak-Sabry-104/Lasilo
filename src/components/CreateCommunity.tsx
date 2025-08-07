@@ -30,7 +30,8 @@ const CreateCommunity = () => {
   };
   return (
     <>
-      <form
+    <div className="h-[90vh] flex items-center">
+  <form
         onSubmit={handleSubmit}
         className="max-w-2xl mx-auto p-8 space-y-6 bg-white/5 backdrop-blur rounded-2xl shadow-xl border border-white/10"
       >
@@ -89,6 +90,8 @@ const CreateCommunity = () => {
           </p>
         )}
       </form>
+    </div>
+    
     </>
   );
 };

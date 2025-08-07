@@ -1,4 +1,15 @@
 @import "tailwindcss";
+@font-face {
+  font-family: 'PressStart2P';
+  src: url('https://fonts.gstatic.com/s/pressstart2p/v14/e3t4euO8T-267oIAQAu6jDQyKp43TV4.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Optional utility class for convenience */
+.font-pixel {
+  font-family: 'PressStart2P', monospace;
+}
 
 @layer utilities {
   @keyframes blink {
@@ -36,3 +47,5 @@
   opacity: 1;
   transform: translateY(0);
 }
+
+

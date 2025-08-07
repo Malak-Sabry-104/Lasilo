@@ -5,7 +5,7 @@ export const CommunityPage = () => {
   const {id} = useParams<{ id: string }>();
   return (
     <>
-      <div>
+      <div className="">
       
         <CommunityDisplay communityId={Number(id)} />
       </div>
