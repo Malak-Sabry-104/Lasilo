@@ -29,13 +29,28 @@
 
 ## 🗺️ Pages (MVP)
 
-- `/` - Home Feed (Recent Posts)
-- `/auth` - Login/Register (via GitHub)
-- `/communities` - Explore Communities
-- `/community/:id` - Community Page (Posts + Info)
-- `/create` - Create a Post
-- `/post/:id` - Post Details (Comments + Replies)
-- `/profile/:id` - User Profile
+This app is structured around the following core pages:
+
+- `/` – **Home Feed**  
+  Displays recent posts from all communities.
+
+- `/create` – **Create a Post**  
+  Form page to submit a new post.
+
+- `/post/:id` – **Post Details**  
+  View a single post along with its comments and replies.
+
+- `/community/create` – **Create a Community**  
+  Allows users to start a new community.
+
+- `/communities` – **Explore Communities**  
+  Lists all available communities.
+
+- `/community` – **Explore Communities (Alternate Route)**  
+  Duplicate route to the `/communities` page for compatibility.
+
+- `/community/:id` – **Community Page**  
+  Shows posts and information about a specific community.
 
 ---
 
