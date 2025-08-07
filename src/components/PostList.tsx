@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "../supabase-client";
 import PostItem from "./PostItem";
 export interface Post {
+  [x: string]: any;
   id: number;
   title: string;
   content: string;
@@ -10,6 +11,7 @@ export interface Post {
   avatar_url?: string;
   like_count?: number;
   comment_count?: number;
+
 }
 
 const fetchPosts = async (): Promise<Post[]> => {
