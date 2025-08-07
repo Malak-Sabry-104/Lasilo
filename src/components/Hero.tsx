@@ -45,7 +45,7 @@ export default function HeroSection() {
           initial="hidden"
           animate="visible"
         >
-          LASILO: THE DEV-FRIENDLY PIXELVERSE
+          LASILO: THE DEV-FRIENDLY 
         </motion.h1>
 
         <motion.p

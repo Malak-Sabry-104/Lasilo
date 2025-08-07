@@ -11,7 +11,7 @@ const Home = () => {
       >
         Recent Posts
       </h2>
-      <div className="h-[100vh] pt-9">
+      <div className="h-[220vh] pt-9">
         <PostList />
       </div>
     </div>
