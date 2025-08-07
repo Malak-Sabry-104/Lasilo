@@ -19,7 +19,7 @@ const PostItem = ({ post }: Props) => {
       {/* Main Card */}
       <Link
         to={`/post/${post.id}`}
-        className="relative z-10 flex flex-col bg-[#1e1e1e] rounded-2xl 
+        className="mb-5 relative z-10 flex flex-col bg-[#1e1e1e] rounded-2xl 
         border border-[#545a6a] overflow-hidden transition duration-300 
         hover:bg-[#2a2a2a] text-white pb-2"
       >

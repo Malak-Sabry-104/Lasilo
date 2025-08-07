@@ -34,7 +34,7 @@ const PostList = () => {
   }
   console.log(data)
   return (
-    <div className="flex flex-wrap gap-6 justify-center">
+    <div className="grid md:grid-cols-4 gap-5 mx-[40px] py-3 px-5 items-center justify-center">
       {data?.map((post, key) => (
         <PostItem post={post} key={key} />
       ))}

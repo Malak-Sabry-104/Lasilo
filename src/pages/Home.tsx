@@ -1,5 +1,5 @@
 import PostList from "../components/PostList";
-import Hero from "./Hero";
+import Hero from "../components/Hero";
 
 const Home = () => {
   return (
@@ -11,7 +11,7 @@ const Home = () => {
       >
         Recent Posts
       </h2>
-      <div className="h-[80vh] pt-9">
+      <div className="h-[100vh] pt-9">
         <PostList />
       </div>
     </div>
