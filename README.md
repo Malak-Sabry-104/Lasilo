@@ -65,7 +65,7 @@ This app is structured around the following core pages:
 | Routing            | **React Router**   |
 | Backend-as-a-Service | **Supabase**    |
 | Database           | **PostgreSQL**     |
-| Hosting            | Vercel / Netlify   |
+| Hosting            |  Netlify   |
 
 ---
 
