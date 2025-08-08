@@ -2,12 +2,14 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "../supabase-client";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useAuth } from "../context/AuthContext";
 
 export interface Community {
   id: number;
   name: string;
   description: string;
   created_at: string;
+  user_id: string;
 }
 
 export const fetchCommunities = async (): Promise<Community[]> => {
@@ -33,6 +35,7 @@ export const CommunityList = () => {
   const queryClient = useQueryClient();
   const [showSuccess, setShowSuccess] = useState(false);
   const [showConfirmId, setShowConfirmId] = useState<number | null>(null);
+  const { user } = useAuth();
 
   const { data, error, isLoading } = useQuery<Community[], Error>({
     queryKey: ["communities"],
@@ -64,19 +67,16 @@ export const CommunityList = () => {
   return (
     <section className="max-w-6xl mx-auto px-6 pt-7 pb-12">
 
-      {/* ✅ Success message */}
       {showSuccess && (
         <div className="bg-green-700 text-white text-center py-2 px-4 mb-6 rounded-lg shadow-lg">
           Community deleted successfully!
         </div>
       )}
 
-      {/* 🟡 Deletion pending message */}
       {mutation.isPending && (
         <p className="text-yellow-500 text-center mb-4">Deleting...</p>
       )}
 
-      {/* 🔴 Deletion error */}
       {mutation.isError && (
         <p className="text-red-500 text-center mb-4">Error: {mutation.error?.message}</p>
       )}
@@ -101,16 +101,16 @@ export const CommunityList = () => {
               </p>
             </Link>
 
-            {/* 🧨 Delete Button */}
-            <button
-              onClick={() => setShowConfirmId(community.id)}
-              className="mt-4 text-sm text-red-400 hover:text-red-600 transition"
-            >
-              Delete
-            </button>
+            {user?.id === community.user_id && (
+              <button
+                onClick={() => setShowConfirmId(community.id)}
+                className="mt-4 text-sm text-red-400 hover:text-red-600 transition"
+              >
+                Delete
+              </button>
+            )}
 
-            {/* 🧾 Confirmation UI */}
-            {showConfirmId === community.id && (
+            {showConfirmId === community.id && user?.id === community.user_id && (
               <div className="mt-3 bg-red-900 border border-red-700 rounded-lg p-4 text-white text-sm">
                 <p>Are you sure you want to delete this community?</p>
                 <div className="mt-2 flex gap-4">
